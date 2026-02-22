@@ -1,0 +1,77 @@
+/* Global Styling */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #0f172a;
+    color: white;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 30px 10px;
+    background: #020617;
+    border-bottom: 1px solid #1e293b;
+}
+
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    color: #38bdf8;
+    margin-bottom: 10px;
+}
+
+/* Main Container */
+.container {
+    padding: 50px 10%;
+}
+
+/* Cards */
+.card {
+    background: #1e293b;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+/* Code Section */
+.code-box {
+    background: #0a0f1f;
+    font-family: monospace;
+}
+
+pre {
+    color: #22d3ee;
+}
+
+/* Button */
+.btn {
+    background: #38bdf8;
+    color: black;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.btn:hover {
+    background: #22d3ee;
+}
+
+/* Center Alignment */
+.center {
+    text-align: center;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #020617;
+    margin-top: 40px;
+    font-size: 14px;
+}
