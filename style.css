@@ -1,15 +1,13 @@
-/* Global Styling */
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: #0f172a;
+    background: linear-gradient(135deg, #0f172a, #020617);
     color: white;
 }
 
-/* Header */
 header {
     text-align: center;
-    padding: 30px 10px;
+    padding: 40px 20px;
     background: #020617;
     border-bottom: 1px solid #1e293b;
 }
@@ -20,25 +18,28 @@ h1 {
     margin-bottom: 10px;
 }
 
-/* Main Container */
 .container {
-    padding: 50px 10%;
+    padding: 60px 10%;
 }
 
-/* Cards */
 .card {
     background: #1e293b;
-    padding: 25px;
-    margin-bottom: 25px;
-    border-radius: 12px;
-    transition: 0.3s;
+    padding: 30px;
+    margin-bottom: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(56,189,248,0.05);
+    transition: 0.3s ease;
 }
 
 .card:hover {
-    transform: scale(1.02);
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(56,189,248,0.2);
 }
 
-/* Code Section */
+ul {
+    line-height: 1.8;
+}
+
 .code-box {
     background: #0a0f1f;
     font-family: monospace;
@@ -46,32 +47,41 @@ h1 {
 
 pre {
     color: #22d3ee;
+    font-size: 14px;
 }
 
-/* Button */
 .btn {
     background: #38bdf8;
     color: black;
-    padding: 10px 20px;
+    padding: 12px 25px;
     text-decoration: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-weight: 600;
+    display: inline-block;
+    transition: 0.3s;
 }
 
 .btn:hover {
     background: #22d3ee;
+    transform: scale(1.05);
 }
 
-/* Center Alignment */
 .center {
     text-align: center;
 }
 
-/* Footer */
 footer {
     text-align: center;
-    padding: 20px;
+    padding: 25px;
     background: #020617;
-    margin-top: 40px;
+    margin-top: 50px;
     font-size: 14px;
+    color: #94a3b8;
+}
+
+/* Responsive */
+@media(max-width:768px){
+    .container{
+        padding:40px 5%;
+    }
 }
