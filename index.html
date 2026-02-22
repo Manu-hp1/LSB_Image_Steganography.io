@@ -7,7 +7,7 @@
 
 <link rel="stylesheet" href="style.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -20,29 +20,29 @@
 <section class="container">
 
     <div class="card">
-        <h2>📌 Project Overview</h2>
+        <h2>Project Overview</h2>
         <p>
-            This project implements Least Significant Bit (LSB) steganography 
-            to securely embed secret text data inside 24-bit BMP image files.
-            The modification occurs at the least significant bit of each pixel byte,
-            ensuring no visible distortion to the image.
+            Implemented Least Significant Bit (LSB) steganography in C to embed
+            secret text data within 24-bit BMP images. The technique modifies
+            only the least significant bits of pixel bytes, ensuring zero
+            visible distortion while maintaining image integrity.
         </p>
     </div>
 
     <div class="card">
-        <h2>⚙ Technical Implementation</h2>
+        <h2>Technical Implementation</h2>
         <ul>
             <li>24-bit BMP format validation</li>
             <li>Binary-level pixel manipulation</li>
-            <li>Bit masking and insertion using bitwise operators</li>
+            <li>Bit masking using bitwise operators</li>
             <li>Separate encoding and decoding modules</li>
-            <li>Modular C architecture</li>
-            <li>Command-line interface based execution</li>
+            <li>Efficient file handling (fread, fwrite)</li>
+            <li>Command-line interface execution</li>
         </ul>
     </div>
 
     <div class="card code-box">
-        <h2>🔐 Core Encoding Logic</h2>
+        <h2>Core Encoding Logic</h2>
 <pre>
 /* Clear LSB */
 pixel_byte = pixel_byte & 0xFE;
@@ -53,18 +53,17 @@ pixel_byte = pixel_byte | bit;
     </div>
 
     <div class="card">
-        <h2>🚀 Key Features</h2>
+        <h2>Key Features</h2>
         <ul>
             <li>Secure message embedding</li>
             <li>Accurate message extraction</li>
-            <li>Image integrity preservation</li>
-            <li>Efficient memory handling</li>
-            <li>Structured modular code design</li>
+            <li>Image quality preservation</li>
+            <li>Structured modular architecture</li>
         </ul>
     </div>
 
     <div class="card">
-        <h2>🎥 Project Demonstration</h2>
+        <h2>Project Demonstration</h2>
         <!-- Replace YOUR_VIDEO_ID -->
         <iframe width="100%" height="400"
             src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
@@ -75,7 +74,7 @@ pixel_byte = pixel_byte | bit;
 
     <div class="card center">
         <a class="btn" href="https://github.com/YOUR_USERNAME/LSB-Image-Steganography" target="_blank">
-            View Full Source Code on GitHub
+            View Source Code on GitHub
         </a>
     </div>
 
