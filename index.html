@@ -3,86 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LSB Image Steganography | Manu H P</title>
+<title>LSB Steganography Engine | Manu H P</title>
 
 <link rel="stylesheet" href="style.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-<header>
-    <h1>LSB Image Steganography</h1>
-    <p>Secure Data Hiding Using Bit-Level Manipulation in C</p>
-</header>
+<!-- NAVBAR -->
+<nav id="navbar">
+    <div class="logo">LSB Engine</div>
+    <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#demo">Demo</a></li>
+    </ul>
+</nav>
 
-<section class="container">
+<!-- HERO -->
+<section class="hero">
+    <h1>Secure Image Steganography</h1>
+    <p>Low-level C implementation for embedding confidential data inside BMP images using LSB manipulation.</p>
+    <a href="#demo" class="btn">Watch Demo</a>
+</section>
 
-    <div class="card">
-        <h2>Project Overview</h2>
-        <p>
-            Implemented Least Significant Bit (LSB) steganography in C to embed
-            secret text data within 24-bit BMP images. The technique modifies
-            only the least significant bits of pixel bytes, ensuring zero
-            visible distortion while maintaining image integrity.
-        </p>
+<!-- ABOUT -->
+<section id="about" class="section hidden">
+    <h2>About the Product</h2>
+    <p>
+        The LSB Steganography Engine securely hides text inside 24-bit BMP images
+        using precise bitwise operations. Image quality remains visually unchanged.
+    </p>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="section light hidden">
+    <h2>Core Features</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>Bitwise Precision</h3>
+            <p>Uses masking and LSB insertion logic.</p>
+        </div>
+        <div class="card">
+            <h3>Modular C Design</h3>
+            <p>Separated encode & decode modules.</p>
+        </div>
+        <div class="card">
+            <h3>Image Integrity</h3>
+            <p>No visible distortion after encoding.</p>
+        </div>
     </div>
+</section>
 
-    <div class="card">
-        <h2>Technical Implementation</h2>
-        <ul>
-            <li>24-bit BMP format validation</li>
-            <li>Binary-level pixel manipulation</li>
-            <li>Bit masking using bitwise operators</li>
-            <li>Separate encoding and decoding modules</li>
-            <li>Efficient file handling (fread, fwrite)</li>
-            <li>Command-line interface execution</li>
-        </ul>
-    </div>
-
-    <div class="card code-box">
-        <h2>Core Encoding Logic</h2>
-<pre>
-/* Clear LSB */
-pixel_byte = pixel_byte & 0xFE;
-
-/* Insert secret bit */
-pixel_byte = pixel_byte | bit;
-</pre>
-    </div>
-
-    <div class="card">
-        <h2>Key Features</h2>
-        <ul>
-            <li>Secure message embedding</li>
-            <li>Accurate message extraction</li>
-            <li>Image quality preservation</li>
-            <li>Structured modular architecture</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <h2>Project Demonstration</h2>
-        <!-- Replace YOUR_VIDEO_ID -->
-        <iframe width="100%" height="400"
-            src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
-            frameborder="0"
-            allowfullscreen>
-        </iframe>
-    </div>
-
-    <div class="card center">
-        <a class="btn" href="https://github.com/Manu-hp1/LSB_Image_Steganography" target="_blank">
-            View Source Code on GitHub
-        </a>
-    </div>
-
+<!-- DEMO -->
+<section id="demo" class="section hidden">
+    <h2>Product Demo</h2>
+    <iframe width="80%" height="400"
+        src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+        frameborder="0"
+        allowfullscreen>
+    </iframe>
 </section>
 
 <footer>
-    © 2026 Manu H P | Embedded Systems Portfolio
+    © 2026 Manu H P | Embedded Systems Engineer
 </footer>
 
+<script src="script.js"></script>
 </body>
 </html>
