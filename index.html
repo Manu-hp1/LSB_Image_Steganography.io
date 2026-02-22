@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LSB Image Steganography | Manu H P</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- CSS File -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header>
+    <h1>LSB Image Steganography</h1>
+    <p>Secret Data Hiding Using Bit-Level Manipulation in C</p>
+</header>
+
+<section class="container">
+
+    <div class="card">
+        <h2>📌 Project Overview</h2>
+        <p>
+            This project implements Least Significant Bit (LSB) image steganography
+            in C to hide secret text inside 24-bit BMP images.
+            The hidden data does not visibly alter the image.
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>⚙ Core Concept</h2>
+        <p>
+            LSB modifies the least significant bit of pixel bytes.
+            Since changes are minimal, the human eye cannot detect them.
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>🧠 Implementation Details</h2>
+        <ul>
+            <li>24-bit BMP file support</li>
+            <li>Bitwise masking and insertion</li>
+            <li>Separate encode & decode modules</li>
+            <li>File handling using fread / fwrite</li>
+            <li>Command-line interface</li>
+        </ul>
+    </div>
+
+    <div class="card code-box">
+        <h2>🔐 Encoding Logic</h2>
+<pre>
+pixel_byte = pixel_byte & 0xFE;   // Clear LSB
+pixel_byte = pixel_byte | bit;    // Insert secret bit
+</pre>
+    </div>
+
+    <div class="card">
+        <h2>🛠 Technologies Used</h2>
+        <p>C Programming | Bitwise Operations | File Handling | Modular Design</p>
+    </div>
+
+    <div class="card center">
+        <a class="btn" href="https://github.com/YOUR_USERNAME/LSB-Image-Steganography">
+            View GitHub Repository
+        </a>
+    </div>
+
+</section>
+
+<footer>
+    © 2026 Manu H P | Embedded Systems Portfolio
+</footer>
+
+</body>
+</html>
