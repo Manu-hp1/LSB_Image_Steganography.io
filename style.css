@@ -158,14 +158,17 @@ footer {
 @media (max-width: 768px) {
 
     nav {
-        display: none;
-        flex-direction: column;
-        background: white;
         position: absolute;
         top: 70px;
         right: 8%;
+        flex-direction: column;
+        background: white;
+        width: 220px;
         padding: 20px;
+        border-radius: 10px;
         box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        display: none;
+        gap: 20px;
     }
 
     nav.active {
@@ -176,19 +179,25 @@ footer {
         display: block;
     }
 
-    .hero-content h1 {
-        font-size: 28px;
-    }
-
     .hero {
-        padding: 0 5%;
-        height: auto;
-        padding-top: 120px;
+        padding-top: 130px;
+        padding-left: 5%;
+        padding-right: 5%;
+        min-height: auto;
         padding-bottom: 80px;
     }
 
-    .section {
-        padding: 80px 5%;
+    .hero-content h1 {
+        font-size: 30px;
+        line-height: 1.2;
+    }
+
+    .hero-content p {
+        font-size: 15px;
+    }
+
+    .card {
+        width: 100%;
     }
 
     iframe {
