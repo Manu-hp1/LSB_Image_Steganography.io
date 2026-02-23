@@ -1,6 +1,6 @@
 const toggle = document.getElementById("menuToggle");
-const nav = document.getElementById("navLinks");
+const navButtons = document.getElementById("navButtons");
 
 toggle.addEventListener("click", () => {
-  nav.classList.toggle("active");
+    navButtons.classList.toggle("active");
 });
