@@ -1,225 +1,220 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    color: #0f172a;
-    background: #ffffff;
+  font-family: 'Inter', sans-serif;
+  color: #0f172a;
+  background: #ffffff;
+  overflow-x: hidden;
 }
 
 /* NAVBAR */
-/* ================= NAVBAR ================= */
-
 .navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: white;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-    z-index: 1000;
+  position: fixed;
+  width: 100%;
+  background: white;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+  z-index: 1000;
 }
 
 .nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 18px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 8%;
 }
 
 .logo {
-    font-weight: 700;
-    font-size: 20px;
+  font-weight: 700;
+  font-size: 20px;
 }
 
 nav {
-    display: flex;
-    gap: 30px;
-    align-items: center;
+  display: flex;
+  gap: 30px;
+  align-items: center;
 }
 
 nav a {
-    text-decoration: none;
-    color: #0f172a;
-    font-weight: 500;
+  text-decoration: none;
+  color: #0f172a;
+  font-weight: 500;
 }
 
 .nav-btn {
-    background: #2563eb;
-    color: white !important;
-    padding: 8px 18px;
-    border-radius: 6px;
+  background: #2563eb;
+  color: white !important;
+  padding: 8px 18px;
+  border-radius: 6px;
 }
 
 .menu-toggle {
-    display: none;
-    font-size: 26px;
-    cursor: pointer;
+  display: none;
+  font-size: 26px;
+  cursor: pointer;
 }
+
 /* HERO */
 .hero {
-    height: 100vh;
-    background: linear-gradient(to right, #1e3a8a, #2563eb);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 10%;
-    text-align: center;
+  min-height: 100vh;
+  padding-top: 130px;
+  background: linear-gradient(to right, #1e3a8a, #2563eb);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
-.hero-content h1 {
-    font-size: 48px;
-    margin-bottom: 20px;
+.hero h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
 }
 
-.hero-content p {
-    max-width: 650px;
-    margin: auto;
-    margin-bottom: 30px;
+.hero p {
+  max-width: 650px;
+  margin: auto;
+  margin-bottom: 30px;
 }
 
 .btn-primary {
-    background: white;
-    color: #1e3a8a;
-    padding: 12px 25px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
+  background: white;
+  color: #1e3a8a;
+  padding: 12px 25px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
 }
 
 /* SECTIONS */
 .section {
-    padding: 100px 10%;
-    text-align: center;
+  padding: 100px 10%;
+  text-align: center;
 }
 
 .light {
-    background: #f8fafc;
+  background: #f8fafc;
 }
 
 .section-text {
-    max-width: 800px;
-    margin: auto;
-    line-height: 1.7;
+  max-width: 800px;
+  margin: auto;
+  line-height: 1.7;
 }
 
 /* GRID */
 .grid {
-    display: flex;
-    gap: 30px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 50px;
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 50px;
 }
 
 .card {
-    width: 300px;
-    padding: 30px;
-    border-radius: 12px;
-    background: white;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  width: 300px;
+  padding: 30px;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
 /* CODE */
 .code {
-    background: #0f172a;
-    color: #38bdf8;
-    padding: 20px;
-    border-radius: 8px;
-    display: inline-block;
+  background: #0f172a;
+  color: #38bdf8;
+  padding: 20px;
+  border-radius: 8px;
+  display: inline-block;
+  text-align: left;
 }
 
 /* VIDEO */
 .video-container {
-    max-width: 900px;
-    margin: auto;
+  max-width: 900px;
+  margin: 40px auto;
 }
 
 iframe {
-    width: 100%;
-    height: 450px;
-    border-radius: 12px;
+  width: 100%;
+  height: 450px;
+  border-radius: 12px;
+}
+
+/* CTA */
+.cta {
+  background: #1e3a8a;
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
 }
 
 /* FOOTER */
 footer {
-    text-align: center;
-    padding: 30px;
-    background: #f1f5f9;
+  text-align: center;
+  padding: 30px;
+  background: #f1f5f9;
 }
 
-/* ========================= */
-/* MOBILE VIEW */
-/* ========================= */
-
+/* MOBILE */
 @media (max-width: 768px) {
 
-    nav {
-        position: absolute;
-        top: 70px;
-        right: 8%;
-        flex-direction: column;
-        background: white;
-        width: 220px;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        display: none;
-        gap: 20px;
-    }
+  nav {
+    display: none;
+    position: absolute;
+    top: 70px;
+    right: 8%;
+    flex-direction: column;
+    background: white;
+    padding: 20px;
+    width: 220px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  }
 
-    nav.active {
-        display: flex;
-    }
+  nav.active {
+    display: flex;
+  }
 
-    .menu-toggle {
-        display: block;
-    }
+  .menu-toggle {
+    display: block;
+  }
 
-    .hero {
-        padding-top: 130px;
-        padding-left: 5%;
-        padding-right: 5%;
-        min-height: auto;
-        padding-bottom: 80px;
-    }
+  .hero {
+    padding-top: 140px;
+    padding-left: 5%;
+    padding-right: 5%;
+    min-height: auto;
+    padding-bottom: 80px;
+  }
 
-    .hero-content h1 {
-        font-size: 30px;
-        line-height: 1.2;
-    }
+  .hero h1 {
+    font-size: 30px;
+  }
 
-    .hero-content p {
-        font-size: 15px;
-    }
+  iframe {
+    height: 250px;
+  }
 
-    .card {
-        width: 100%;
-    }
-
-    iframe {
-        height: 250px;
-    }
+  .card {
+    width: 100%;
+  }
 }
 
-/* ========================= */
-/* TABLET VIEW */
-/* ========================= */
-
+/* TABLET */
 @media (min-width: 769px) and (max-width: 1024px) {
 
-    .hero-content h1 {
-        font-size: 36px;
-    }
+  .hero h1 {
+    font-size: 36px;
+  }
 
-    .section {
-        padding: 80px 8%;
-    }
+  iframe {
+    height: 350px;
+  }
 
-    iframe {
-        height: 350px;
-    }
 }
