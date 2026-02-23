@@ -11,17 +11,22 @@ body {
 }
 
 /* NAVBAR */
+/* ================= NAVBAR ================= */
+
 .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: white;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    z-index: 1000;
+}
+
+.nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 18px 8%;
-    background: white;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
 }
 
 .logo {
@@ -32,6 +37,7 @@ body {
 nav {
     display: flex;
     gap: 30px;
+    align-items: center;
 }
 
 nav a {
@@ -52,7 +58,6 @@ nav a {
     font-size: 26px;
     cursor: pointer;
 }
-
 /* HERO */
 .hero {
     height: 100vh;
