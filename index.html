@@ -11,84 +11,139 @@
 
 <body>
 
+<!-- NAVBAR -->
 <header class="navbar">
-    <div class="nav-container">
-        <div class="logo">Steganography</div>
+  <div class="nav-container">
+    <div class="logo">StegaSecure</div>
 
-        <div class="menu-toggle" id="menuToggle">
-            &#9776;
-        </div>
+    <div class="menu-toggle" id="menuToggle">&#9776;</div>
 
-        <nav id="navLinks">
-            <a href="#product">Product</a>
-            <a href="#technology">Technology</a>
-            <a href="#demo">Demo</a>
-            <a href="https://github.com/Manu-hp1/LSB_Image_Steganography"
-               target="_blank"
-               class="nav-btn">
-               GitHub
-            </a>
-        </nav>
-    </div>
+    <nav id="navLinks">
+      <a href="#about">About</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#demo">Demo</a>
+      <a href="https://github.com/YOUR_USERNAME/LSB-Image-Steganography"
+         target="_blank"
+         class="nav-btn">GitHub</a>
+    </nav>
+  </div>
 </header>
 
+<!-- HERO -->
 <section class="hero">
-    <div class="hero-content">
-        <h1>Secure Data Concealment Inside Images</h1>
-        <p>
-            A low-level C implementation of Least Significant Bit steganography
-            engineered for secure message embedding within 24-bit BMP images.
-        </p>
-        <a href="#demo" class="btn-primary">Watch Demo</a>
-    </div>
-</section>
-
-<section id="product" class="section">
-    <h2>Product Overview</h2>
-    <p class="section-text">
-        StegaSecure embeds confidential data inside bitmap images using precise
-        bit-level manipulation while preserving image quality.
+  <div class="hero-content">
+    <h1>Secure Data Concealment Inside Images</h1>
+    <p>
+      A low-level C implementation of Least Significant Bit steganography
+      engineered for secure message embedding within 24-bit BMP images.
     </p>
+    <a href="#demo" class="btn-primary">Watch Demo</a>
+  </div>
 </section>
 
+<!-- ABOUT -->
+<section id="about" class="section">
+  <h2>Product Overview</h2>
+  <p class="section-text">
+    StegaSecure embeds confidential data inside bitmap images using
+    precise bit-level manipulation while preserving image quality
+    and structural integrity.
+  </p>
+</section>
+
+<!-- PROBLEM -->
 <section class="section light">
-    <h2>Core Capabilities</h2>
-    <div class="grid">
-        <div class="card">
-            <h3>Bit-Level Precision</h3>
-            <p>Modifies only least significant bits of pixels.</p>
-        </div>
-        <div class="card">
-            <h3>Modular Architecture</h3>
-            <p>Clean separation of encode, decode, validation.</p>
-        </div>
-        <div class="card">
-            <h3>Image Integrity</h3>
-            <p>No visible distortion after embedding.</p>
-        </div>
-    </div>
+  <h2>Problem Statement</h2>
+  <p class="section-text">
+    Sensitive communication over digital channels may expose data
+    to interception. This project solves that problem by embedding
+    confidential messages directly into image files at binary level.
+  </p>
 </section>
 
-<section id="technology" class="section">
-    <h2>Core Encoding Logic</h2>
+<!-- WORKFLOW -->
+<section id="workflow" class="section">
+  <h2>System Workflow</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>1. Validation</h3>
+      <p>Verify BMP header and confirm 24-bit image structure.</p>
+    </div>
+    <div class="card">
+      <h3>2. Encoding</h3>
+      <p>Clear LSB → Insert secret bit → Write modified byte.</p>
+    </div>
+    <div class="card">
+      <h3>3. Decoding</h3>
+      <p>Extract LSB → Reconstruct message → Output secret text.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TECH LOGIC -->
+<section class="section light">
+  <h2>Core Encoding Logic</h2>
 <pre class="code">
-pixel_byte = pixel_byte & 0xFE;
-pixel_byte = pixel_byte | bit;
+pixel_byte = pixel_byte & 0xFE;   // Clear LSB
+pixel_byte = pixel_byte | bit;    // Insert secret bit
 </pre>
 </section>
 
-<section id="demo" class="section light">
-    <h2>Product Demonstration</h2>
-    <div class="video-container">
-        <iframe
-            src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
-            allowfullscreen>
-        </iframe>
+<!-- OUTPUT VIDEO -->
+<section id="demo" class="section">
+  <h2>Output Demonstration</h2>
+  <div class="video-container">
+    <iframe 
+      src="https://www.youtube.com/embed/YOUR_OUTPUT_VIDEO_ID"
+      allowfullscreen>
+    </iframe>
+  </div>
+</section>
+
+<!-- EXPLANATION VIDEO -->
+<section class="section light">
+  <h2>Project Explanation</h2>
+  <p class="section-text">
+    Detailed walkthrough of bit manipulation logic, file handling,
+    modular architecture, and encoding/decoding strategy.
+  </p>
+  <div class="video-container">
+    <iframe 
+      src="https://www.youtube.com/embed/YOUR_EXPLANATION_VIDEO_ID"
+      allowfullscreen>
+    </iframe>
+  </div>
+</section>
+
+<!-- TECH DETAILS -->
+<section class="section">
+  <h2>Technical Highlights</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Bitwise Precision</h3>
+      <p>Uses AND & OR masking for secure binary manipulation.</p>
     </div>
+    <div class="card">
+      <h3>Efficient File Handling</h3>
+      <p>Buffered processing using fread and fwrite.</p>
+    </div>
+    <div class="card">
+      <h3>Modular Architecture</h3>
+      <p>Separated encode, decode and validation modules.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2>Explore Complete Implementation</h2>
+  <a href="https://github.com/YOUR_USERNAME/LSB-Image-Steganography"
+     target="_blank"
+     class="btn-primary">View Source Code</a>
 </section>
 
 <footer>
-    © 2026 Manu H P | Embedded Systems Engineer
+  © 2026 Manu H P | Embedded Systems Engineer
 </footer>
 
 <script src="script.js"></script>
