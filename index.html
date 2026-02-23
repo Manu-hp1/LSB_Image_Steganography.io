@@ -11,10 +11,9 @@
 
 <body>
 
-<!-- NAVBAR -->
 <header class="navbar">
   <div class="nav-container">
-    <div class="logo">StegaSecure</div>
+    <div class="logo">LSB Image Steganography</div>
 
     <div class="menu-toggle" id="menuToggle">&#9776;</div>
 
@@ -22,14 +21,13 @@
       <a href="#about">About</a>
       <a href="#workflow">Workflow</a>
       <a href="#demo">Demo</a>
-      <a href="https://github.com/YOUR_USERNAME/LSB-Image-Steganography"
+      <a href="https://github.com/Manu-hp1/LSB_Image_Steganography"
          target="_blank"
          class="nav-btn">GitHub</a>
     </nav>
   </div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-content">
     <h1>Secure Data Concealment Inside Images</h1>
@@ -41,55 +39,49 @@
   </div>
 </section>
 
-<!-- ABOUT -->
 <section id="about" class="section">
   <h2>Product Overview</h2>
   <p class="section-text">
     StegaSecure embeds confidential data inside bitmap images using
-    precise bit-level manipulation while preserving image quality
-    and structural integrity.
+    precise bit-level manipulation while preserving image quality.
   </p>
 </section>
 
-<!-- PROBLEM -->
 <section class="section light">
   <h2>Problem Statement</h2>
   <p class="section-text">
-    Sensitive communication over digital channels may expose data
-    to interception. This project solves that problem by embedding
-    confidential messages directly into image files at binary level.
+    Sensitive communication may expose confidential data.
+    This solution embeds hidden messages inside image files
+    at binary level to ensure secure transmission.
   </p>
 </section>
 
-<!-- WORKFLOW -->
 <section id="workflow" class="section">
   <h2>System Workflow</h2>
   <div class="grid">
     <div class="card">
-      <h3>1. Validation</h3>
-      <p>Verify BMP header and confirm 24-bit image structure.</p>
+      <h3>Validation</h3>
+      <p>Verify BMP header and confirm 24-bit structure.</p>
     </div>
     <div class="card">
-      <h3>2. Encoding</h3>
-      <p>Clear LSB → Insert secret bit → Write modified byte.</p>
+      <h3>Encoding</h3>
+      <p>Clear LSB → Insert bit → Write modified byte.</p>
     </div>
     <div class="card">
-      <h3>3. Decoding</h3>
-      <p>Extract LSB → Reconstruct message → Output secret text.</p>
+      <h3>Decoding</h3>
+      <p>Extract LSB → Reconstruct → Recover message.</p>
     </div>
   </div>
 </section>
 
-<!-- TECH LOGIC -->
 <section class="section light">
   <h2>Core Encoding Logic</h2>
 <pre class="code">
-pixel_byte = pixel_byte & 0xFE;   // Clear LSB
-pixel_byte = pixel_byte | bit;    // Insert secret bit
+pixel_byte = pixel_byte & 0xFE;
+pixel_byte = pixel_byte | bit;
 </pre>
 </section>
 
-<!-- OUTPUT VIDEO -->
 <section id="demo" class="section">
   <h2>Output Demonstration</h2>
   <div class="video-container">
@@ -100,12 +92,11 @@ pixel_byte = pixel_byte | bit;    // Insert secret bit
   </div>
 </section>
 
-<!-- EXPLANATION VIDEO -->
 <section class="section light">
   <h2>Project Explanation</h2>
   <p class="section-text">
-    Detailed walkthrough of bit manipulation logic, file handling,
-    modular architecture, and encoding/decoding strategy.
+    Detailed walkthrough of bit manipulation logic,
+    modular architecture and file handling strategy.
   </p>
   <div class="video-container">
     <iframe 
@@ -115,7 +106,6 @@ pixel_byte = pixel_byte | bit;    // Insert secret bit
   </div>
 </section>
 
-<!-- TECH DETAILS -->
 <section class="section">
   <h2>Technical Highlights</h2>
   <div class="grid">
@@ -134,10 +124,9 @@ pixel_byte = pixel_byte | bit;    // Insert secret bit
   </div>
 </section>
 
-<!-- CTA -->
 <section class="cta">
   <h2>Explore Complete Implementation</h2>
-  <a href="https://github.com/YOUR_USERNAME/LSB-Image-Steganography"
+  <a href="https://github.com/Manu-hp1/LSB_Image_Steganography"
      target="_blank"
      class="btn-primary">View Source Code</a>
 </section>
