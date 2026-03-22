@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LSB Image Steganography — Manu H P</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── DARK THEME — Original page colors ── */
+    :root {
+      --bg:         #0A0F1A;
+      --panel:      #0D1117;
+      --card:       #111827;
+      --border:     #1F2937;
+      --green:      #00FF88;
+      --green2:     #10B981;
+      --green3:     #059669;
+      --white:      #F9FAFB;
+      --cream:      #D1D5DB;
+      --muted:      #6B7280;
+      --dark:       #030712;
+      --navy:       #0F172A;
+      --hover-card: #141d2b;
+      --nav-bg:     rgba(10,15,26,.9);
+    }
+    /* ── LIGHT THEME ── */
+    [data-theme="light"] {
+      --bg:         #F0FFF8;
+      --panel:      #E6FAF2;
+      --card:       #FFFFFF;
+      --border:     #B7EDD5;
+      --green:      #059669;
+      --green2:     #10B981;
+      --green3:     #047857;
+      --white:      #0A0F1A;
+      --cream:      #1F2937;
+      --muted:      #4B5563;
+      --dark:       #F0FFF8;
+      --navy:       #E6FAF2;
+      --hover-card: #D1FAE5;
+      --nav-bg:     rgba(240,255,248,.92);
+    }
+    html { transition: background .3s, color .3s; }
+
+    /* Theme toggle */
+    .theme-toggle-wrap { display:flex; align-items:center; gap:.5rem; }
+    .theme-icon { font-size:.9rem; user-select:none; }
+    .theme-toggle {
+      width:42px; height:22px; background:var(--border);
+      border-radius:999px; position:relative; cursor:pointer;
+      border:1.5px solid var(--green); transition:background .3s;
+      flex-shrink:0;
+    }
+    .theme-toggle::after {
+      content:''; position:absolute;
+      width:14px; height:14px; background:var(--green);
+      border-radius:50%; top:2px; left:2px;
+      transition:transform .3s ease, background .3s;
+    }
+    [data-theme="light"] .theme-toggle::after { transform:translateX(20px); }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;overflow-x:hidden;cursor:none;}
+    .cursor{position:fixed;width:10px;height:10px;background:var(--green);border-radius:50%;pointer-events:none;z-index:9999;transition:transform .1s ease;mix-blend-mode:difference;}
+    .cursor-ring{position:fixed;width:34px;height:34px;border:1.5px solid var(--green);border-radius:50%;pointer-events:none;z-index:9998;transition:all .15s ease;opacity:.4;}
+    body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,255,136,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,.025) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 4rem;background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+    .nav-logo{font-family:'Space Mono',monospace;font-size:.82rem;color:var(--green);letter-spacing:.1em;}
+    .nav-links{display:flex;gap:2.5rem;}
+    .nav-links a{font-size:.8rem;color:var(--muted);text-decoration:none;letter-spacing:.04em;transition:color .2s;}
+    .nav-links a:hover{color:var(--white);}
+    .nav-btn{font-family:'Space Mono',monospace;font-size:.76rem;padding:.45rem 1.2rem;border:1px solid var(--green);color:var(--green);background:transparent;text-decoration:none;letter-spacing:.04em;transition:all .2s;}
+    .nav-btn:hover{background:var(--green);color:var(--dark);}
+    .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:7rem 4rem 4rem;gap:4rem;position:relative;z-index:1;}
+    .hero-tag{display:inline-flex;align-items:center;gap:.5rem;font-family:'Space Mono',monospace;font-size:.7rem;color:var(--green);letter-spacing:.15em;border:1px solid rgba(0,255,136,.2);padding:.3rem .85rem;margin-bottom:1.8rem;background:rgba(0,255,136,.04);}
+    .hero-tag span{width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 2s infinite;}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.6rem,4.5vw,4rem);font-weight:800;line-height:1.06;letter-spacing:-.02em;margin-bottom:1rem;}
+    .hero h1 em{font-style:normal;color:var(--green);}
+    .hero-sub{font-size:1rem;color:var(--cream);line-height:1.75;margin-bottom:1.8rem;max-width:480px;font-weight:300;}
+    .hero-desc{font-size:.87rem;color:var(--muted);line-height:1.8;margin-bottom:2.5rem;max-width:480px;border-left:2px solid var(--border);padding-left:1rem;}
+    .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+    .btn-primary{font-family:'Space Mono',monospace;font-size:.78rem;padding:.82rem 2rem;background:var(--green);color:var(--dark);text-decoration:none;font-weight:700;letter-spacing:.04em;transition:all .2s;display:inline-flex;align-items:center;gap:.5rem;}
+    .btn-primary:hover{background:#00e67a;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,255,136,.2);}
+    .btn-secondary{font-family:'Space Mono',monospace;font-size:.78rem;padding:.82rem 2rem;border:1px solid var(--border);color:var(--cream);text-decoration:none;letter-spacing:.04em;transition:all .2s;display:inline-flex;align-items:center;gap:.5rem;}
+    .btn-secondary:hover{border-color:var(--green);color:var(--green);transform:translateY(-2px);}
+    .hero-stats{display:flex;gap:2.5rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border);}
+    .stat-num{font-family:'Space Mono',monospace;font-size:1.5rem;color:var(--green);font-weight:700;display:block;}
+    .stat-label{font-size:.72rem;color:var(--muted);letter-spacing:.05em;margin-top:.2rem;}
+    .hero-right{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;}
+    .pixel-canvas{position:relative;width:400px;height:400px;}
+    .pixel-grid{display:grid;grid-template-columns:repeat(16,1fr);gap:2px;width:100%;height:100%;padding:1.2rem;background:var(--card);border:1px solid var(--border);box-shadow:0 0 60px rgba(0,255,136,.07);}
+    .pixel-cell{aspect-ratio:1;border-radius:1px;transition:all .3s;}
+    .canvas-label{position:absolute;font-family:'Space Mono',monospace;font-size:.62rem;color:var(--green);letter-spacing:.1em;background:rgba(0,255,136,.07);border:1px solid rgba(0,255,136,.15);padding:.18rem .5rem;}
+    .canvas-label.top{top:-1rem;left:1.2rem;}
+    .canvas-label.bottom{bottom:-1rem;right:1.2rem;}
+    .bit-row{position:absolute;right:-4.5rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:4px;}
+    .bit{font-family:'Space Mono',monospace;font-size:.68rem;padding:.12rem .4rem;animation:bitFlick 3s infinite;}
+    .bit.one{color:var(--green);background:rgba(0,255,136,.08);}
+    .bit.zero{color:var(--muted);background:rgba(107,114,128,.08);}
+    @keyframes bitFlick{0%,100%{opacity:1}50%{opacity:.3}}
+    .bit:nth-child(2){animation-delay:.3s}.bit:nth-child(3){animation-delay:.6s}.bit:nth-child(4){animation-delay:.9s}.bit:nth-child(5){animation-delay:1.2s}.bit:nth-child(6){animation-delay:1.5s}.bit:nth-child(7){animation-delay:1.8s}.bit:nth-child(8){animation-delay:2.1s}
+    section{padding:5rem 4rem;position:relative;z-index:1;}
+    .section-label{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--green);letter-spacing:.2em;margin-bottom:.7rem;}
+    .section-title{font-family:'Syne',sans-serif;font-size:clamp(1.7rem,3vw,2.4rem);font-weight:800;line-height:1.1;margin-bottom:.9rem;}
+    .section-desc{font-size:.93rem;color:var(--muted);line-height:1.8;max-width:560px;}
+    .how-section{background:var(--panel);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+    .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:3rem;background:var(--border);}
+    .how-card{background:var(--card);padding:2.2rem;position:relative;overflow:hidden;transition:all .3s;}
+    .how-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--green),transparent);transform:translateX(-100%);transition:transform .5s ease;}
+    .how-card:hover::before{transform:translateX(0);}
+    .how-card:hover{background:var(--hover-card);}
+    .how-num{font-family:'Space Mono',monospace;font-size:2.8rem;font-weight:700;color:rgba(0,255,136,.07);line-height:1;margin-bottom:.8rem;}
+    .how-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--white);margin-bottom:.5rem;}
+    .how-desc{font-size:.83rem;color:var(--muted);line-height:1.7;}
+    .how-code{margin-top:1rem;font-family:'Space Mono',monospace;font-size:.7rem;color:var(--green);background:rgba(0,255,136,.05);border:1px solid rgba(0,255,136,.1);padding:.45rem .75rem;display:inline-block;}
+    .flow-section{border-top:1px solid var(--border);}
+    .flow-container{display:grid;grid-template-columns:1fr auto 1fr;gap:2rem;align-items:start;margin-top:3rem;}
+    .flow-box{border:1px solid var(--border);background:var(--card);overflow:hidden;}
+    .flow-header{padding:.75rem 1.5rem;font-family:'Space Mono',monospace;font-size:.73rem;letter-spacing:.1em;font-weight:700;display:flex;align-items:center;gap:.6rem;}
+    .flow-header.encode{background:rgba(0,255,136,.08);color:var(--green);border-bottom:1px solid rgba(0,255,136,.15);}
+    .flow-header.decode{background:rgba(16,185,129,.08);color:#34d399;border-bottom:1px solid rgba(16,185,129,.15);}
+    .flow-header span{width:7px;height:7px;border-radius:50%;}
+    .flow-header.encode span{background:var(--green);}
+    .flow-header.decode span{background:#34d399;}
+    .flow-steps{padding:1.5rem;}
+    .flow-step{display:flex;align-items:flex-start;gap:.9rem;padding:.85rem 0;border-bottom:1px solid var(--border);}
+    .flow-step:last-child{border-bottom:none;}
+    .step-num{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--dark);background:var(--green);width:20px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;}
+    .step-num.g2{background:#34d399;}
+    .step-text{font-size:.82rem;color:var(--cream);line-height:1.5;}
+    .step-code{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--green);margin-top:.25rem;}
+    .step-code.g2{color:#34d399;}
+    .flow-arrow{display:flex;align-items:center;justify-content:center;padding-top:5rem;flex-direction:column;gap:.4rem;}
+    .flow-arrow-line{width:2px;height:55px;background:linear-gradient(to bottom,var(--green),#34d399);}
+    .flow-arrow-label{font-family:'Space Mono',monospace;font-size:.62rem;color:var(--muted);letter-spacing:.1em;writing-mode:vertical-rl;}
+    .features-section{background:var(--panel);border-top:1px solid var(--border);}
+    .features-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:3rem;background:var(--border);}
+    .feature-card{background:var(--card);padding:1.8rem 2.2rem;display:flex;gap:1.3rem;align-items:flex-start;transition:all .3s;}
+    .feature-card:hover{background:var(--hover-card);}
+    .feature-icon-wrap{width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:rgba(0,255,136,.07);border:1px solid rgba(0,255,136,.12);flex-shrink:0;font-size:1.1rem;}
+    .feature-title{font-family:'Syne',sans-serif;font-size:.93rem;font-weight:700;color:var(--white);margin-bottom:.35rem;}
+    .feature-desc{font-size:.8rem;color:var(--muted);line-height:1.65;}
+    .tech-section{border-top:1px solid var(--border);}
+    .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:3rem;}
+    .tech-card{border:1px solid var(--border);padding:1.6rem;background:var(--card);transition:all .3s;}
+    .tech-card:hover{border-color:var(--green);transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,255,136,.08);}
+    .tech-badge{font-family:'Space Mono',monospace;font-size:.66rem;color:var(--dark);background:var(--green);padding:.18rem .55rem;display:inline-block;margin-bottom:.7rem;font-weight:700;letter-spacing:.04em;}
+    .tech-name{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--white);margin-bottom:.35rem;}
+    .tech-detail{font-size:.78rem;color:var(--muted);line-height:1.6;}
+    .about-section{background:var(--panel);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+    .about-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+    .about-avatar{width:80px;height:80px;background:rgba(0,255,136,.08);border:2px solid rgba(0,255,136,.25);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:var(--green);margin-bottom:1.2rem;}
+    .about-name{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;margin-bottom:.25rem;}
+    .about-role{font-size:.82rem;color:var(--green);font-family:'Space Mono',monospace;letter-spacing:.04em;margin-bottom:.9rem;}
+    .about-bio{font-size:.88rem;color:var(--muted);line-height:1.8;margin-bottom:1.4rem;}
+    .about-skills{display:flex;flex-wrap:wrap;gap:.45rem;}
+    .skill-tag{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--green);border:1px solid rgba(0,255,136,.18);padding:.22rem .65rem;background:rgba(0,255,136,.04);letter-spacing:.04em;}
+    .about-card{border:1px solid var(--border);background:var(--card);padding:1.6rem;margin-bottom:.9rem;}
+    .about-card-title{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--muted);letter-spacing:.1em;margin-bottom:.5rem;}
+    .about-card-val{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:600;color:var(--white);}
+    .about-card-val span{color:var(--green);}
+    .mentor-item{display:flex;align-items:center;gap:.75rem;padding:.45rem 0;border-bottom:1px solid var(--border);font-size:.83rem;color:var(--cream);}
+    .mentor-item:last-child{border-bottom:none;}
+    .mentor-dot{width:5px;height:5px;background:var(--green);border-radius:50%;flex-shrink:0;}
+    footer{padding:2.2rem 4rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+    .footer-left{font-family:'Space Mono',monospace;font-size:.72rem;color:var(--muted);}
+    .footer-left span{color:var(--green);}
+    .footer-right{display:flex;gap:1.5rem;}
+    .footer-right a{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--muted);text-decoration:none;letter-spacing:.04em;transition:color .2s;}
+    .footer-right a:hover{color:var(--green);}
+    .fade-up{opacity:0;transform:translateY(20px);animation:fadeUp .65s ease forwards;}
+    @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+    .fade-up:nth-child(1){animation-delay:.1s}.fade-up:nth-child(2){animation-delay:.2s}.fade-up:nth-child(3){animation-delay:.3s}.fade-up:nth-child(4){animation-delay:.4s}.fade-up:nth-child(5){animation-delay:.5s}
+    ::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--border);}
+    @media(max-width:900px){nav{padding:1rem 1.5rem;}.nav-links{display:none;}.hero{grid-template-columns:1fr;padding:6rem 1.5rem 3rem;}.hero-right{display:none;}section{padding:3rem 1.5rem;}.how-grid,.features-grid,.tech-grid{grid-template-columns:1fr;}.flow-container{grid-template-columns:1fr;}.flow-arrow{display:none;}.about-inner{grid-template-columns:1fr;}footer{flex-direction:column;gap:1rem;text-align:center;padding:2rem 1.5rem;}}
+  </style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <div class="nav-logo">MANU-HP / LSB-STEG</div>
+  <div class="nav-links">
+    <a href="#how">How It Works</a>
+    <a href="#flow">Flow</a>
+    <a href="#features">Features</a>
+    <a href="#tech">Tech</a>
+    <a href="#about">About</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <div class="theme-toggle-wrap" onclick="toggleTheme()" title="Toggle Light / Dark">
+      <span class="theme-icon" id="themeIcon">🌙</span>
+      <div class="theme-toggle" id="themeToggle"></div>
+      <span class="theme-icon" id="themeIconSun">☀️</span>
+    </div>
+    <a href="https://github.com/Manu-hp1/LSB_Image_Steganography" target="_blank" class="nav-btn">View Source</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag fade-up"><span></span>C PROGRAMMING · BIT MANIPULATION</div>
+    <h1 class="fade-up">Hide Data<br/>Inside an<br/><em>Image.</em></h1>
+    <p class="hero-sub fade-up">A secure data concealment system built in C that embeds confidential messages inside 24-bit BMP images using precise bit-level manipulation.</p>
+    <p class="hero-desc fade-up">Most people look at an image and see colors. This project sees binary. Every pixel holds 3 bytes — red, green, blue. Change the last bit of each and the image looks identical. But the message is there, hidden in plain sight.</p>
+    <div class="hero-btns fade-up">
+      <a href="https://github.com/Manu-hp1/LSB_Image_Steganography" target="_blank" class="btn-primary">↗ Source Code</a>
+      <a href="https://www.canva.com/design/DAG9XpoogbM/Bcy0H1WjEMZ4W28ws-qPbw/view" target="_blank" class="btn-secondary">▶ Watch Demo</a>
+    </div>
+    <div class="hero-stats fade-up">
+      <div><span class="stat-num">24-bit</span><div class="stat-label">BMP FORMAT</div></div>
+      <div><span class="stat-num">LSB</span><div class="stat-label">TECHNIQUE</div></div>
+      <div><span class="stat-num">0%</span><div class="stat-label">VISUAL CHANGE</div></div>
+      <div><span class="stat-num">C</span><div class="stat-label">LANGUAGE</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="pixel-canvas">
+      <div class="canvas-label top">INPUT.BMP — 24 BIT</div>
+      <div class="pixel-grid" id="pixelGrid"></div>
+      <div class="canvas-label bottom">OUTPUT.BMP — IDENTICAL</div>
+      <div class="bit-row">
+        <div class="bit one">1</div><div class="bit zero">0</div>
+        <div class="bit one">1</div><div class="bit one">1</div>
+        <div class="bit zero">0</div><div class="bit one">1</div>
+        <div class="bit zero">0</div><div class="bit zero">0</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how-section" id="how">
+  <div class="section-label">// HOW IT WORKS</div>
+  <h2 class="section-title">The LSB Technique</h2>
+  <p class="section-desc">Every 24-bit BMP pixel stores 3 bytes for Red, Green and Blue. Changing only the least significant bit of each byte causes less than 0.4% color change — completely invisible to the human eye.</p>
+  <div class="how-grid">
+    <div class="how-card"><div class="how-num">01</div><div class="how-title">Read the BMP Image</div><div class="how-desc">The BMP file is opened and the 54-byte header is validated for format, dimensions and bit depth. Only 24-bit BMP images are accepted.</div><div class="how-code">fread(&header, sizeof(BMPHeader), 1, fp)</div></div>
+    <div class="how-card"><div class="how-num">02</div><div class="how-title">Embed Message Bits</div><div class="how-desc">Each character is converted to 8 bits. Each bit is embedded into the LSB of one pixel byte using AND masking to clear and OR to set.</div><div class="how-code">pixel = (pixel & 0xFE) | (bit & 0x01)</div></div>
+    <div class="how-card"><div class="how-num">03</div><div class="how-title">Extract Hidden Data</div><div class="how-desc">During decoding, the LSB of each pixel byte is extracted and assembled back into characters. Null terminator marks end of message.</div><div class="how-code">bit = pixel & 0x01</div></div>
+  </div>
+</section>
+
+<section class="flow-section" id="flow">
+  <div class="section-label">// EXECUTION FLOW</div>
+  <h2 class="section-title">Encode & Decode</h2>
+  <p class="section-desc">Two separate modes — encoding hides the message, decoding reveals it. Both work entirely through the command line.</p>
+  <div class="flow-container">
+    <div class="flow-box">
+      <div class="flow-header encode"><span></span>ENCODE — HIDE MESSAGE</div>
+      <div class="flow-steps">
+        <div class="flow-step"><div class="step-num">1</div><div><div class="step-text">Open source BMP and validate 24-bit format</div><div class="step-code">fopen() + header validation</div></div></div>
+        <div class="flow-step"><div class="step-num">2</div><div><div class="step-text">Check image capacity against message size</div><div class="step-code">capacity = (width × height × 3) / 8</div></div></div>
+        <div class="flow-step"><div class="step-num">3</div><div><div class="step-text">Convert each character to 8 bits</div><div class="step-code">bit = (ch >> i) & 1</div></div></div>
+        <div class="flow-step"><div class="step-num">4</div><div><div class="step-text">Embed each bit into LSB of pixel byte</div><div class="step-code">pixel = (pixel & 0xFE) | bit</div></div></div>
+        <div class="flow-step"><div class="step-num">5</div><div><div class="step-text">Write modified pixels to output BMP</div><div class="step-code">fwrite() to output.bmp</div></div></div>
+      </div>
+    </div>
+    <div class="flow-arrow"><div class="flow-arrow-line"></div><div class="flow-arrow-label">LSB LAYER</div></div>
+    <div class="flow-box">
+      <div class="flow-header decode"><span></span>DECODE — REVEAL MESSAGE</div>
+      <div class="flow-steps">
+        <div class="flow-step"><div class="step-num g2">1</div><div><div class="step-text">Open the encoded BMP image</div><div class="step-code g2">fopen(encoded_image, "rb")</div></div></div>
+        <div class="flow-step"><div class="step-num g2">2</div><div><div class="step-text">Read pixel bytes one by one</div><div class="step-code g2">fread(&pixel, 1, 1, fp)</div></div></div>
+        <div class="flow-step"><div class="step-num g2">3</div><div><div class="step-text">Extract the LSB from each pixel byte</div><div class="step-code g2">bit = pixel & 0x01</div></div></div>
+        <div class="flow-step"><div class="step-num g2">4</div><div><div class="step-text">Assemble 8 bits back into one character</div><div class="step-code g2">ch |= (bit << i)</div></div></div>
+        <div class="flow-step"><div class="step-num g2">5</div><div><div class="step-text">Stop at null terminator and print message</div><div class="step-code g2">if (ch == '\0') break</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features-section" id="features">
+  <div class="section-label">// KEY FEATURES</div>
+  <h2 class="section-title">What It Does</h2>
+  <div class="features-grid">
+    <div class="feature-card"><div class="feature-icon-wrap">🔐</div><div><div class="feature-title">Invisible Data Hiding</div><div class="feature-desc">Modifies only the least significant bit of each pixel byte. Visual difference is less than 0.4% — completely undetectable to the human eye.</div></div></div>
+    <div class="feature-card"><div class="feature-icon-wrap">✅</div><div><div class="feature-title">BMP Header Validation</div><div class="feature-desc">Validates the 54-byte BMP header before processing. Rejects non-BMP files, non-24-bit formats and corrupted headers automatically.</div></div></div>
+    <div class="feature-card"><div class="feature-icon-wrap">⚡</div><div><div class="feature-title">Bitwise AND & OR Masking</div><div class="feature-desc">AND with 0xFE clears the LSB. OR with the message bit sets it. Two operations control the entire system.</div></div></div>
+    <div class="feature-card"><div class="feature-icon-wrap">📁</div><div><div class="feature-title">File I/O with fread & fwrite</div><div class="feature-desc">Efficient binary file handling for reading pixel data and writing the modified output BMP without any data loss.</div></div></div>
+    <div class="feature-card"><div class="feature-icon-wrap">🧱</div><div><div class="feature-title">Modular C Architecture</div><div class="feature-desc">Clear separation of encoding, decoding, validation and file handling modules. Each function has a single responsibility.</div></div></div>
+    <div class="feature-card"><div class="feature-icon-wrap">💻</div><div><div class="feature-title">Command-Line Interface</div><div class="feature-desc">Runs entirely from the terminal. No dependencies beyond GCC. Simple arguments control encode and decode mode.</div></div></div>
+  </div>
+</section>
+
+<section class="tech-section" id="tech">
+  <div class="section-label">// TECH STACK</div>
+  <h2 class="section-title">Built With</h2>
+  <div class="tech-grid">
+    <div class="tech-card"><div class="tech-badge">LANGUAGE</div><div class="tech-name">C Programming</div><div class="tech-detail">Pure C with no external libraries. Every operation — file reading, bit manipulation, memory handling — done from scratch.</div></div>
+    <div class="tech-card"><div class="tech-badge">TECHNIQUE</div><div class="tech-name">Bit Manipulation</div><div class="tech-detail">AND masking with 0xFE to clear LSB. OR to embed message bit. Shift operators decompose characters into individual bits.</div></div>
+    <div class="tech-card"><div class="tech-badge">FORMAT</div><div class="tech-name">24-bit BMP</div><div class="tech-detail">Uncompressed image format. Each pixel uses 3 bytes for RGB. No compression means zero data loss during embedding.</div></div>
+    <div class="tech-card"><div class="tech-badge">I/O</div><div class="tech-name">File Handling</div><div class="tech-detail">fopen, fread, fwrite and fclose for binary file operations. BMP header preserved exactly and pixel data modified byte by byte.</div></div>
+    <div class="tech-card"><div class="tech-badge">MEMORY</div><div class="tech-name">Pointers & Structs</div><div class="tech-detail">C structures map directly to the BMP header layout. Pointer arithmetic navigates pixel data efficiently without unnecessary copying.</div></div>
+    <div class="tech-card"><div class="tech-badge">PLATFORM</div><div class="tech-name">Linux / GCC</div><div class="tech-detail">Compiled with GCC using -Wall -Wextra flags for zero warnings. Developed and tested on Linux WSL environment.</div></div>
+  </div>
+</section>
+
+<section class="about-section" id="about">
+  <div class="about-inner">
+    <div>
+      <div class="about-avatar">MH</div>
+      <div class="about-name">Manu H P</div>
+      <div class="about-role">Embedded Systems Trainee — Emertxe</div>
+      <p class="about-bio">Passionate about low-level programming and understanding how things work from the ground up. This project was part of my C++ Programming module — focusing on binary data, memory and modular design. Every line was written to understand, not just to compile.</p>
+      <div class="about-skills">
+        <span class="skill-tag">C Programming</span>
+        <span class="skill-tag">Linux</span>
+        <span class="skill-tag">Bit Manipulation</span>
+        <span class="skill-tag">File Handling</span>
+        <span class="skill-tag">Socket Programming</span>
+        <span class="skill-tag">Embedded Systems</span>
+      </div>
+    </div>
+    <div>
+      <div class="about-card"><div class="about-card-title">INSTITUTE</div><div class="about-card-val"><span>Emertxe</span> Information Technology</div></div>
+      <div class="about-card"><div class="about-card-title">MODULE</div><div class="about-card-val">C++ Programming — <span>Advanced Track</span></div></div>
+      <div class="about-card">
+        <div class="about-card-title">GUIDED BY</div>
+        <div><div class="mentor-item"><div class="mentor-dot"></div>Anand Lokhande Sir</div><div class="mentor-item"><div class="mentor-dot"></div>Jagadeesan S Sir</div><div class="mentor-item"><div class="mentor-dot"></div>Sapthagiri Shanmugam Sir</div></div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-title">LINKS</div>
+        <div style="display:flex;gap:.7rem;margin-top:.5rem;">
+          <a href="https://github.com/Manu-hp1/LSB_Image_Steganography" target="_blank" class="btn-primary" style="font-size:.72rem;padding:.45rem 1rem;">GitHub ↗</a>
+          <a href="https://github.com/Manu-hp1" target="_blank" class="btn-secondary" style="font-size:.72rem;padding:.45rem 1rem;">Profile ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">© 2026 <span>Manu H P</span> · LSB Image Steganography · Built with C</div>
+  <div class="footer-right">
+    <a href="https://github.com/Manu-hp1" target="_blank">GitHub</a>
+    <a href="https://github.com/Manu-hp1/LSB_Image_Steganography" target="_blank">Repository</a>
+    <a href="https://manu-hp1.github.io/LSB_Image_Steganography.io/" target="_blank">Live Page</a>
+  </div>
+</footer>
+
+<script>
+  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx-5+'px';cursor.style.top=my-5+'px';});
+  function animRing(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;ring.style.left=rx-17+'px';ring.style.top=ry-17+'px';requestAnimationFrame(animRing);}
+  animRing();
+  document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>{cursor.style.transform='scale(2)';ring.style.transform='scale(1.5)';});el.addEventListener('mouseleave',()=>{cursor.style.transform='scale(1)';ring.style.transform='scale(1)';});});
+
+  // ── PIXEL GRID ──
+  const grid=document.getElementById('pixelGrid');
+  const darkPixels=['#0a1a0f','#081510','#0d2218','#061208','#102a15','#0a1c10','#071510','#0e2010'];
+  const lightPixels=['#d1fae5','#a7f3d0','#ecfdf5','#bbf7d0','#6ee7b7','#d4fce8','#c6f6d5','#e0fdf0'];
+  const greens=['#00FF88','#00e67a','#00cc6b','#10B981','#059669'];
+  const greensLight=['#059669','#10B981','#047857','#065f46','#34d399'];
+
+  function buildGrid(){
+    grid.innerHTML='';
+    const isLight=document.documentElement.getAttribute('data-theme')==='light';
+    const bg=isLight?lightPixels:darkPixels;
+    const ac=isLight?greensLight:greens;
+    for(let i=0;i<256;i++){
+      const c=document.createElement('div');c.className='pixel-cell';
+      const isG=Math.random()<.13;
+      c.style.background=isG?ac[Math.floor(Math.random()*ac.length)]:bg[Math.floor(Math.random()*bg.length)];
+      c.style.opacity=.5+Math.random()*.5;
+      grid.appendChild(c);
+    }
+  }
+  buildGrid();
+
+  function animP(){
+    const cells=grid.querySelectorAll('.pixel-cell');
+    const idx=Math.floor(Math.random()*cells.length);
+    const isLight=document.documentElement.getAttribute('data-theme')==='light';
+    const bg=isLight?lightPixels:darkPixels;
+    const ac=isLight?greensLight:greens;
+    const isG=Math.random()<.14;
+    cells[idx].style.background=isG?ac[Math.floor(Math.random()*ac.length)]:bg[Math.floor(Math.random()*bg.length)];
+    cells[idx].style.opacity=.4+Math.random()*.6;
+    setTimeout(animP,90);
+  }
+  animP();
+
+  // ── THEME TOGGLE ──
+  function toggleTheme(){
+    const html=document.documentElement;
+    const isLight=html.getAttribute('data-theme')==='light';
+    html.setAttribute('data-theme', isLight ? 'dark' : 'light');
+    document.getElementById('themeIcon').style.opacity = isLight ? '1' : '0.3';
+    document.getElementById('themeIconSun').style.opacity = isLight ? '0.3' : '1';
+    localStorage.setItem('theme', isLight ? 'dark' : 'light');
+    buildGrid();
+  }
+
+  // Load saved theme on page load
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  if(savedTheme === 'light'){
+    document.getElementById('themeIcon').style.opacity='0.3';
+    document.getElementById('themeIconSun').style.opacity='1';
+  } else {
+    document.getElementById('themeIcon').style.opacity='1';
+    document.getElementById('themeIconSun').style.opacity='0.3';
+  }
+
+  // ── SCROLL REVEAL ──
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});},{threshold:.08});
+  document.querySelectorAll('.how-card,.feature-card,.tech-card,.about-card').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(18px)';el.style.transition='all .5s ease';obs.observe(el);});
+</script>
+</body>
+</html>
