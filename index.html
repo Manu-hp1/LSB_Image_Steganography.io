@@ -60,9 +60,7 @@
     [data-theme="light"] .theme-toggle::after { transform:translateX(20px); }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     html{scroll-behavior:smooth;}
-    body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;overflow-x:hidden;cursor:none;}
-    .cursor{position:fixed;width:10px;height:10px;background:var(--green);border-radius:50%;pointer-events:none;z-index:9999;transition:transform .1s ease;mix-blend-mode:difference;}
-    .cursor-ring{position:fixed;width:34px;height:34px;border:1.5px solid var(--green);border-radius:50%;pointer-events:none;z-index:9998;transition:all .15s ease;opacity:.4;}
+    body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;overflow-x:hidden;}
     body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,255,136,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,.025) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0;}
     nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 4rem;background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
     .nav-logo{font-family:'Space Mono',monospace;font-size:.82rem;color:var(--green);letter-spacing:.1em;}
@@ -177,9 +175,6 @@
   </style>
 </head>
 <body>
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
 <nav>
   <div class="nav-logo">MANU-HP / LSB-STEG</div>
   <div class="nav-links">
@@ -341,13 +336,6 @@
 </footer>
 
 <script>
-  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx-5+'px';cursor.style.top=my-5+'px';});
-  function animRing(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;ring.style.left=rx-17+'px';ring.style.top=ry-17+'px';requestAnimationFrame(animRing);}
-  animRing();
-  document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>{cursor.style.transform='scale(2)';ring.style.transform='scale(1.5)';});el.addEventListener('mouseleave',()=>{cursor.style.transform='scale(1)';ring.style.transform='scale(1)';});});
-
   // ── PIXEL GRID ──
   const grid=document.getElementById('pixelGrid');
   const darkPixels=['#0a1a0f','#081510','#0d2218','#061208','#102a15','#0a1c10','#071510','#0e2010'];
